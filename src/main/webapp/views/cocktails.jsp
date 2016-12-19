@@ -17,6 +17,7 @@
 			<table id="cocktailsTable" class="table table-hover table-striped">
 				<thead>
 					<tr>
+						<th>Id</th>
 						<th>Nom</th>
 						<th>Prix</th>
 						<th>Alcoolisé</th>
@@ -27,6 +28,7 @@
 				<tbody>
 					<c:forEach items="${cocktails}" var="cocktail">
 						<tr>
+							<td class="col-md-2">${cocktail.id}</td>
 							<td>${cocktail.name}</td>
 							<td>${cocktail.price}</td>
 							<td>${cocktail.alcoholic}</td>
@@ -48,10 +50,16 @@
 	</div>
 </div>
 <script type="text/javascript">
-	$('#cocktailsTable').DataTable({
+	$.noConflict();
+  var table = jQuery('#cocktailsTable').DataTable({
 		pageLength : 5,
 		lengthMenu : [ 5, 10, 15 ],
 		colReorder : true
+	});
+
+	jQuery('#cocktailsTable tbody').on('click', 'tr', function() {
+		var data = table.row(this).data();
+		alert('You clicked on ' + data[0] + '\'s row');
 	});
 </script>
 <jsp:include page="/inc/footerWithTables.jsp" />

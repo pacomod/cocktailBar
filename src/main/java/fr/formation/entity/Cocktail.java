@@ -4,15 +4,12 @@ import java.io.Serializable;
 
 public class Cocktail implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
 	private double price;
 	private boolean alcoholic;
-	//	List<IngredientProportion> ingredientProportions;
+//	List<CocktailIngredient> CocktailIngredient;
 
 
 	public Cocktail() {
@@ -103,11 +100,12 @@ public class Cocktail implements Serializable {
 		this.alcoholic = alcoholic;
 	}
 
-	//	public List<IngredientProportion> getIngredientProportions() {
-	//		return ingredientProportions;
-	//	}
-	//
-	//	public void setIngredientProportions(List<IngredientProportion> ingredientProportions) {
-	//		this.ingredientProportions = ingredientProportions;
-	//	}
+//	public List<CocktailIngredient> getCocktailIngredient() {
+//		return CocktailIngredient;
+//	}
+//
+//	public void setCocktailIngredient(List<CocktailIngredient> cocktailIngredient) {
+//		CocktailIngredient = cocktailIngredient;
+//	}
+
 }

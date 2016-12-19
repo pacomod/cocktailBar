@@ -1,4 +1,4 @@
-package fr.formation.dao;
+package fr.formation.trash;
 
 import java.util.Arrays;
 import java.util.List;

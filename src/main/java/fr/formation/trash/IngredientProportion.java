@@ -1,6 +1,8 @@
-package fr.formation.entity;
+package fr.formation.trash;
 
 import java.io.Serializable;
+
+import fr.formation.entity.Ingredient;
 
 public class IngredientProportion implements Serializable {
 

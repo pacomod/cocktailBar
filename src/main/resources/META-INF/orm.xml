@@ -42,4 +42,36 @@
 		</attributes>
 
 	</entity>
+
+	<entity class="fr.formation.entity.CocktailIngredient">
+
+		<table name="cocktail_ingredient" />
+		<attributes>
+			<id name="id">
+				<generated-value strategy="IDENTITY" />
+			</id>
+			<basic name="cocktailId">
+				<column name="cocktail_id" />
+			</basic>
+			<basic name="ingredientId">
+				<column name="ingredient_id" />
+			</basic>
+			<basic name="quantityNum">
+				<column name="quantity_num" />
+			</basic>
+			<basic name="quantityDen">
+				<column name="quantity_den" />
+			</basic>
+			<one-to-one name="Cocktail">  <!-- name → propriété de la classe CocktailIngredient -->
+				<join-table name="cocktail"> <!-- name → table SQL de Cocktail -->
+					<join-column name="cocktail_id" /> <!-- name → colonne SQL de joint de cocktail_ingredient -->
+				</join-table>
+			</one-to-one>
+			<one-to-one name="Ingredient">  <!-- name → propriété de la classe IngredientIngredient -->
+				<join-table name="ingredient"> <!-- name → table SQL de Ingredient -->
+					<join-column name="ingredient_id" /> <!-- name → colonne SQL de joint de ingredient_ingredient -->
+				</join-table>
+			</one-to-one>
+		</attributes>
+	</entity>
 </entity-mappings>
