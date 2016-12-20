@@ -60,7 +60,9 @@ public class CocktailService {
 		return this.cocktailDao.findOne(id);
 	}
 	
-	public List<CocktailIngredient> getCocktailIngredients() {
-		return this.cocktailIngredientsDao.findAll();
+	public List<CocktailIngredient> getCocktailIngredients(final Integer cocktailId) {
+		return this.cocktailIngredientsDao.findAllByCocktailId(cocktailId);
 	}
 }
+
+
