@@ -59,7 +59,7 @@
 
 	jQuery('#cocktailsTable tbody').on('click', 'tr', function() {
 		var data = table.row(this).data();
-		alert('You clicked on ' + data[0] + '\'s row');
+		document.location = 'cocktail/edit/'+data[0]+'.html';
 	});
 </script>
 <jsp:include page="/inc/footerWithTables.jsp" />
