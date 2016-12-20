@@ -78,27 +78,27 @@
 								<c:forEach items="${cocktailIngredients}"
 									var="cocktailIngredient">
 									<tr>
-										<td class="col-md-2">${cocktailIngredient.id}</td>
-										<td class="col-md-4"><input id="name" name="name"
+										<td class="col-md-1">${cocktailIngredient.id}</td>
+										<td class="col-md-5"><input id="name" name="name"
 											class="form-control"
 											<c:if test="${action.equals('Effacer')}">disabled=""</c:if>
 											value="${cocktailIngredient.name}" /></td>
 										<td class="col-md-2"><input id="qtNum" name="qtNum"
 											class="form-control"
 											<c:if test="${action.equals('Effacer')}">disabled=""</c:if>
-											value="${cocktailIngredient.quantityNum}" /></td>
+											value="${cocktailIngredient.quantityNum}" type="number" min="1"/></td>
 										<td class="col-md-2"><input id="qtDen" name="qtDen"
 											class="form-control"
 											<c:if test="${action.equals('Effacer')}">disabled=""</c:if>
-											value="${cocktailIngredient.quantityDen}" /></td>
+											value="${cocktailIngredient.quantityDen}" type="number" min="1"/></td>
 										<td class="col-md-2"><button
 												class="btn btn-warning btn-xs">Supprimer</button>
 									</tr>
 								</c:forEach>
 								<tr>
-									<td class="col-md-2"></td>
+									<td class="col-md-1"></td>
 									<%--id… --%>
-									<td class="col-md-4"><select class="form-control"
+									<td class="col-md-5"><select class="form-control"
 										id="newIngredient" name="newIngredient"
 										<c:if test="${action.equals('Effacer')}">disabled=""</c:if>>
 											<option value="" disabled selected>Nouveau</option>
@@ -107,11 +107,11 @@
 											</c:forEach>
 									</select></td>
 									<td class="col-md-2"><input id="newQtNum" name="newQtNum"
-										class="form-control"
+										class="form-control" type="number"  min="1"
 										<c:if test="${action.equals('Effacer')}">disabled=""</c:if> />
 									</td>
 									<td class="col-md-2"><input id="newQtDen" name="newQtDen"
-										class="form-control"
+										class="form-control" type="number"  min="1"
 										<c:if test="${action.equals('Effacer')}">disabled=""</c:if> />
 									</td>
 									<td class="col-md-2"><button class="btn btn-succes btn-xs">Ajouter</button>
