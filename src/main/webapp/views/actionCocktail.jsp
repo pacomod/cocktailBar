@@ -62,7 +62,7 @@
 					</div>
 					<%--Ingredients table --%>
 					<div class="row">
-					<legend>Ingrédients</legend>
+						<legend>Ingrédients</legend>
 						<table id="cocktailIngredientsTable"
 							class="table table-hover table-striped">
 							<thead>
@@ -79,23 +79,27 @@
 									var="cocktailIngredient">
 									<tr>
 										<td class="col-md-2">${cocktailIngredient.id}</td>
-										<td class="col-md-4"><input id="name" name="name" class="form-control"
+										<td class="col-md-4"><input id="name" name="name"
+											class="form-control"
 											<c:if test="${action.equals('Effacer')}">disabled=""</c:if>
 											value="${cocktailIngredient.name}" /></td>
-										<td class="col-md-2"><input id="qtNum" name="qtNum" class="form-control"
+										<td class="col-md-2"><input id="qtNum" name="qtNum"
+											class="form-control"
 											<c:if test="${action.equals('Effacer')}">disabled=""</c:if>
 											value="${cocktailIngredient.quantityNum}" /></td>
-										<td class="col-md-2"><input id="qtDen" name="qtDen" class="form-control"
+										<td class="col-md-2"><input id="qtDen" name="qtDen"
+											class="form-control"
 											<c:if test="${action.equals('Effacer')}">disabled=""</c:if>
 											value="${cocktailIngredient.quantityDen}" /></td>
-										<td class="col-md-2"><button class="btn btn-warning btn-xs">Supprimer</button>
+										<td class="col-md-2"><button
+												class="btn btn-warning btn-xs">Supprimer</button>
 									</tr>
 								</c:forEach>
 								<tr>
 									<td class="col-md-2"></td>
 									<%--id… --%>
-									<td class="col-md-4"><select class="form-control" id="newIngredient"
-										name="newIngredient"
+									<td class="col-md-4"><select class="form-control"
+										id="newIngredient" name="newIngredient"
 										<c:if test="${action.equals('Effacer')}">disabled=""</c:if>>
 											<option value="" disabled selected>Nouveau</option>
 											<c:forEach items="${ingredients}" var="ingredient">
@@ -114,10 +118,10 @@
 								</tr>
 							</tbody>
 						</table>
-											<%--envoyer la form… --%>
-					<button type="button" class="btn btn-default col-md-2"
-						data-toggle="modal" data-target="#validationModal">Valider</button>
-					<%-- 					<button class="btn btn-default">Valider</button> --%>
+						<%--envoyer la form… --%>
+						<button type="button" class="btn btn-default col-md-2"
+							data-toggle="modal" data-target="#validationModal">Valider</button>
+						<%-- 					<button class="btn btn-default">Valider</button> --%>
 
 					</div>
 				</fieldset>
