@@ -1,7 +1,6 @@
 package fr.formation.controller;
 
 import java.util.Iterator;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -28,12 +27,6 @@ public class CocktailController {
 		mav.setViewName("cocktails");
 		mav.addObject("cocktails", service.getAll());
 		return mav;
-	}
-	
-	public String addCoctailIngredient(@RequestParam final Integer cocktailId,
-			@RequestParam final List<Integer> ingredientIds,
-			@RequestParam final Integer qte) {
-		return null;
 	}
 	
 		@RequestMapping("/add")
