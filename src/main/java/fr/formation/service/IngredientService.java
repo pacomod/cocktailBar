@@ -32,4 +32,8 @@ public class IngredientService {
 	public void delete(final Ingredient ingredient) {
 		this.dao.delete(ingredient);
 	}
+
+	public Ingredient get(Integer ingredientId) {
+		return this.dao.findOne(ingredientId);
+	}
 }
