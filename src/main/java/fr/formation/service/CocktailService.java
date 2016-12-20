@@ -16,7 +16,7 @@ import fr.formation.entity.CocktailIngredient;
 public class CocktailService {
 
 	@Autowired
-	private CocktailDao dao;
+	private CocktailDao cocktailDao;
 
 	@Autowired
 	private CocktailIngredientDao cocktailIngredientsDao;
@@ -29,7 +29,7 @@ public class CocktailService {
 			final Integer ingredientId, final Integer quantityNum,
 			final Integer quantityDen) {
 		final CocktailIngredient cocktailIngredient = new CocktailIngredient();
-		cocktailIngredient.setCocktail(this.dao.findOne(cocktailId));
+		cocktailIngredient.setCocktail(this.cocktailDao.findOne(cocktailId));
 		cocktailIngredient.setIngredient(this.ingredientsDao.findOne(ingredientId));
 		cocktailIngredient.setQuantityNum(quantityNum);
 		cocktailIngredient.setQuantityDen(quantityDen);
@@ -38,22 +38,26 @@ public class CocktailService {
 	}
 	
 	public List<Cocktail> getAll() {
-		return this.dao.findAll();
+		return this.cocktailDao.findAll();
 	}
 
 	@Transactional
 	public void create(final Cocktail cocktail) {
-		this.dao.save(cocktail);
+		this.cocktailDao.save(cocktail);
 	}
 
 	@Transactional
 	public void update(final Cocktail cocktail) {
-		this.dao.save(cocktail);
+		this.cocktailDao.save(cocktail);
 	}
 
 	@Transactional
 	public void delete(final Cocktail cocktail) {
-		this.dao.delete(cocktail);
+		this.cocktailDao.delete(cocktail);
+	}
+	
+	public Cocktail get(final Integer id) {
+		return this.cocktailDao.findOne(id);
 	}
 	
 	public List<CocktailIngredient> getCocktailIngredients() {
