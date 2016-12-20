@@ -11,11 +11,11 @@ public class Cocktail implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	@NotNull
-	@Pattern(regexp=("[^/:;+=@&]+"))
+	@Pattern(regexp=("[^/:;+=@&*\\\\]+"))
 	private String name;
 	@NotNull
 	@Min(0)
-	private double price;
+	private Double price;
 	private boolean alcoholic;
 //	List<CocktailIngredient> CocktailIngredient;
 
@@ -24,7 +24,7 @@ public class Cocktail implements Serializable {
 		super();
 	}
 
-	public Cocktail(Integer id, String name, double price, boolean alcoholic) {
+	public Cocktail(Integer id, String name, Double price, boolean alcoholic) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -33,15 +33,16 @@ public class Cocktail implements Serializable {
 	}
 
 	@Override
+	public String toString() {
+		return "Cocktail [id=" + id + ", name=" + name + ", price=" + price + ", alcoholic=" + alcoholic + "]";
+	}
+
+
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (alcoholic ? 1231 : 1237);
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(price);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
 
@@ -54,26 +55,12 @@ public class Cocktail implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Cocktail other = (Cocktail) obj;
-		if (alcoholic != other.alcoholic)
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
 			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
-			return false;
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Cocktail [id=" + id + ", name=" + name + ", price=" + price + ", alcoholic=" + alcoholic + "]";
 	}
 
 	public Integer getId() {
@@ -92,11 +79,11 @@ public class Cocktail implements Serializable {
 		this.name = name;
 	}
 
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
@@ -107,6 +94,7 @@ public class Cocktail implements Serializable {
 	public void setAlcoholic(boolean alcoholic) {
 		this.alcoholic = alcoholic;
 	}
+
 
 //	public List<CocktailIngredient> getCocktailIngredient() {
 //		return CocktailIngredient;

@@ -37,10 +37,7 @@ public class CocktailIngredient implements Serializable {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((cocktail == null) ? 0 : cocktail.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((ingredient == null) ? 0 : ingredient.hashCode());
-		result = prime * result + ((quantityDen == null) ? 0 : quantityDen.hashCode());
-		result = prime * result + ((quantityNum == null) ? 0 : quantityNum.hashCode());
 		return result;
 	}
 
@@ -58,25 +55,10 @@ public class CocktailIngredient implements Serializable {
 				return false;
 		} else if (!cocktail.equals(other.cocktail))
 			return false;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
 		if (ingredient == null) {
 			if (other.ingredient != null)
 				return false;
 		} else if (!ingredient.equals(other.ingredient))
-			return false;
-		if (quantityDen == null) {
-			if (other.quantityDen != null)
-				return false;
-		} else if (!quantityDen.equals(other.quantityDen))
-			return false;
-		if (quantityNum == null) {
-			if (other.quantityNum != null)
-				return false;
-		} else if (!quantityNum.equals(other.quantityNum))
 			return false;
 		return true;
 	}
