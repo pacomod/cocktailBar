@@ -16,10 +16,10 @@ import fr.formation.entity.CocktailIngredient;
 public class CocktailService {
 
 	@Autowired
-	private CocktailDao cocktailDao;
+	private CocktailIngredientDao cocktailIngredientDao;
 
 	@Autowired
-	private CocktailIngredientDao cocktailIngredientDao;
+	private CocktailDao cocktailDao;
 
 	@Autowired
 	private IngredientDao ingredientDao;
