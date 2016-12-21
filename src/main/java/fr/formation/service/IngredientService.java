@@ -1,12 +1,15 @@
 package fr.formation.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import fr.formation.dao.IngredientDao;
+import fr.formation.entity.CocktailIngredient;
 import fr.formation.entity.Ingredient;
 
 @Service
@@ -33,7 +36,24 @@ public class IngredientService {
 		this.dao.delete(ingredient);
 	}
 
-	public Ingredient get(Integer ingredientId) {
+	public Ingredient get(final Integer ingredientId) {
 		return this.dao.findOne(ingredientId);
 	}
+
+	public List<Ingredient> getAllByCocktail(
+			final List<CocktailIngredient> cocktailIngredients) {
+		List<Ingredient> results = null;
+		if (CollectionUtils.isEmpty(cocktailIngredients)) {
+			results = this.getAll();
+		} else {
+			final List<Integer> ingredientIds = cocktailIngredients.stream()
+					.map(
+							(final CocktailIngredient cocktailIngredient) -> cocktailIngredient
+									.getIngredient().getId())
+					.collect(Collectors.toList());
+			results = this.dao.findAllByIdNotIn(ingredientIds);
+		}
+		return results;
+	}
+
 }
