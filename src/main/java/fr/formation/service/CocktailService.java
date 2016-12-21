@@ -19,24 +19,23 @@ public class CocktailService {
 	private CocktailDao cocktailDao;
 
 	@Autowired
-	private CocktailIngredientDao cocktailIngredientsDao;
-	
+	private CocktailIngredientDao cocktailIngredientDao;
+
 	@Autowired
-	private IngredientDao ingredientsDao;
-	
+	private IngredientDao ingredientDao;
+
 	@Transactional
-	public void addCocktailIngredient(final Integer cocktailId,
-			final Integer ingredientId, final Integer quantityNum,
+	public void addCocktailIngredient(final Integer cocktailId, final Integer ingredientId, final Integer quantityNum,
 			final Integer quantityDen) {
 		final CocktailIngredient cocktailIngredient = new CocktailIngredient();
 		cocktailIngredient.setCocktail(this.cocktailDao.findOne(cocktailId));
-		cocktailIngredient.setIngredient(this.ingredientsDao.findOne(ingredientId));
+		cocktailIngredient.setIngredient(this.ingredientDao.findOne(ingredientId));
 		cocktailIngredient.setQuantityNum(quantityNum);
 		cocktailIngredient.setQuantityDen(quantityDen);
 
-		this.cocktailIngredientsDao.save(cocktailIngredient);
+		this.cocktailIngredientDao.save(cocktailIngredient);
 	}
-	
+
 	public List<Cocktail> getAll() {
 		return this.cocktailDao.findAll();
 	}
@@ -55,14 +54,12 @@ public class CocktailService {
 	public void delete(final Cocktail cocktail) {
 		this.cocktailDao.delete(cocktail);
 	}
-	
+
 	public Cocktail get(final Integer id) {
 		return this.cocktailDao.findOne(id);
 	}
-	
+
 	public List<CocktailIngredient> getCocktailIngredients(final Integer cocktailId) {
-		return this.cocktailIngredientsDao.findAllByCocktailId(cocktailId);
+		return this.cocktailIngredientDao.findAllByCocktailId(cocktailId);
 	}
 }
-
-
