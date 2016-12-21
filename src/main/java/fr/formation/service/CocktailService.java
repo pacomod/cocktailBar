@@ -25,7 +25,8 @@ public class CocktailService {
 	private IngredientDao ingredientDao;
 
 	@Transactional
-	public void addCocktailIngredient(final Integer cocktailId, final Integer ingredientId, final Integer quantityNum,
+	public void addCocktailIngredient(final Integer cocktailId,
+			final Integer ingredientId, final Integer quantityNum,
 			final Integer quantityDen) {
 		final CocktailIngredient cocktailIngredient = new CocktailIngredient();
 		cocktailIngredient.setCocktail(this.cocktailDao.findOne(cocktailId));
@@ -59,7 +60,8 @@ public class CocktailService {
 		return this.cocktailDao.findOne(id);
 	}
 
-	public List<CocktailIngredient> getCocktailIngredients(final Integer cocktailId) {
+	public List<CocktailIngredient> getCocktailIngredients(
+			final Integer cocktailId) {
 		return this.cocktailIngredientDao.findAllByCocktailId(cocktailId);
 	}
 }

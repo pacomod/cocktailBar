@@ -8,12 +8,13 @@ import org.springframework.stereotype.Repository;
 import fr.formation.entity.CocktailIngredient;
 
 @Repository
-public interface CocktailIngredientDao  extends JpaRepository<CocktailIngredient, Integer> {
+public interface CocktailIngredientDao
+		extends JpaRepository<CocktailIngredient, Integer> {
 
 	/**
-	 * Méthode générée par éclipse: génère automatiquement une requête
-	 *  basée sur le nom de la méthode!!
-	 *   
+	 * Méthode générée par éclipse: génère automatiquement une requête basée sur
+	 * le nom de la méthode!!
+	 * 
 	 * @param cocktailId
 	 * @return
 	 */
