@@ -44,7 +44,6 @@
 	</entity>
 
 	<entity class="fr.formation.entity.CocktailIngredient">
-
 		<table name="cocktail_ingredient" />
 		<attributes>
 			<id name="id">
@@ -62,15 +61,11 @@
 			<basic name="quantityDen">
 				<column name="quantity_den" />
 			</basic>
-			<one-to-one name="Cocktail">  <!-- name → propriété de la classe CocktailIngredient -->
-				<join-table name="cocktail"> <!-- name → table SQL de Cocktail -->
-					<join-column name="cocktail_id" /> <!-- name → colonne SQL de joint de cocktail_ingredient -->
-				</join-table>
+			<one-to-one name="cocktail">  <!-- sql table name -->
+				<join-column name="cocktail_id" /> <!-- sql column name -->
 			</one-to-one>
-			<one-to-one name="Ingredient">  <!-- name → propriété de la classe IngredientIngredient -->
-				<join-table name="ingredient"> <!-- name → table SQL de Ingredient -->
-					<join-column name="ingredient_id" /> <!-- name → colonne SQL de joint de ingredient_ingredient -->
-				</join-table>
+			<one-to-one name="ingredient">  <!-- sql table name -->
+				<join-column name="ingredient_id" /> <!-- sql column name -->
 			</one-to-one>
 		</attributes>
 	</entity>
