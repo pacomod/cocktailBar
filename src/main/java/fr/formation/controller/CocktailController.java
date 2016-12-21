@@ -19,17 +19,17 @@ import fr.formation.service.CocktailService;
 public class CocktailController {
 
 	@Autowired
-	private CocktailService service;
-	
+	private CocktailService cocktailService;
+
 	@RequestMapping
 	public ModelAndView listAll() {
 		final ModelAndView mav = new ModelAndView();
 		mav.setViewName("cocktails");
-		mav.addObject("cocktails", service.getAll());
+		mav.addObject("cocktails", this.cocktailService.getAll());
 		return mav;
 	}
-	
-		@RequestMapping("/add")
+
+	@RequestMapping("/add")
 	public ModelAndView add() {
 		final ModelAndView mav = new ModelAndView();
 		mav.addObject("action", "Ajouter");
@@ -40,14 +40,15 @@ public class CocktailController {
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String newCocktail(@RequestParam final String name,
 			@RequestParam final Double price, @RequestParam final Boolean alcoholic) {
-		this.service.create(new Cocktail(null, name, price, alcoholic));
+		this.cocktailService.create(new Cocktail(null, name, price, alcoholic));
 		return "redirect:/cocktails/add.html";
 	}
 
 	@RequestMapping("/mod")
 	public ModelAndView mod(@Param(value = "id") final int id) {
 		final ModelAndView mav = new ModelAndView();
-		Iterator<Cocktail> cocktailIter = this.service.getAll().iterator();
+		final Iterator<Cocktail> cocktailIter = this.cocktailService.getAll()
+				.iterator();
 		Cocktail cocktail = null;
 		boolean found = false;
 		while (!found && cocktailIter.hasNext()) {
@@ -63,17 +64,17 @@ public class CocktailController {
 
 	@RequestMapping(value = "/mod", method = RequestMethod.POST)
 	public String modCocktail(@RequestParam final int id,
-			@RequestParam final String name,
-			@RequestParam final double price,
+			@RequestParam final String name, @RequestParam final double price,
 			@RequestParam final boolean alcoholic) {
-		this.service.update(new Cocktail(id, name, price, alcoholic));
+		this.cocktailService.update(new Cocktail(id, name, price, alcoholic));
 		return "redirect:/cocktails.html";
 	}
 
 	@RequestMapping("/del")
 	public ModelAndView del(@Param(value = "id") final int id) {
 		final ModelAndView mav = new ModelAndView();
-		Iterator<Cocktail> ingrdientsIter = this.service.getAll().iterator();
+		final Iterator<Cocktail> ingrdientsIter = this.cocktailService.getAll()
+				.iterator();
 		Cocktail cocktail = null;
 		boolean found = false;
 		while (!found && ingrdientsIter.hasNext()) {
@@ -89,10 +90,9 @@ public class CocktailController {
 
 	@RequestMapping(value = "/del", method = RequestMethod.POST)
 	public String delCocktail(@RequestParam final int id,
-			@RequestParam final String name,
-			@RequestParam final double price,
+			@RequestParam final String name, @RequestParam final double price,
 			@RequestParam final boolean alcoholic) {
-		this.service.delete(new Cocktail(id, name, price, alcoholic));
+		this.cocktailService.delete(new Cocktail(id, name, price, alcoholic));
 		return "redirect:/cocktails.html";
 	}
 
