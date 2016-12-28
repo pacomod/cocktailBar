@@ -8,8 +8,15 @@
 <c:url value="/cocktail/save.html" var="saveUrl">
 </c:url>
 <div class="container">
+	<div class="page-header" id="banner">
+		<div class="row">
+			<div class="col-lg-8 col-md-7 col-sm-6">
+				<h2>Modifier le cocktail</h2>
+			</div>
+		</div>
+	</div>
+
 	<div class="cocktail-details col-md-4">
-		<h2>Modifier le cocktail</h2>
 		<form:form modelAttribute="cocktail" action="${saveUrl}">
 			<form:hidden path="id" />
 			<div class="form-group">
@@ -30,40 +37,47 @@
 			<button>Valider</button>
 		</form:form>
 	</div>
-	<div class="cocktail-ingredients col-md-8"></div>
-	<table id="cocktailIngredientsTable">
-		<thead>
-			<tr>
-				<th>Ingrédient</th>
-				<th colspan="2">Quantité</th>
-				<th></th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach items="${cocktailIngredients}" var="cocktailIngredient">
-				<c:url value="/cocktail/removeIngredient.html" var="removeUrl">
-					<c:param name="ingredientId"
-						value="${cocktailIngredient.ingredient.id}">
-					</c:param>
-				</c:url>
+	<div class="cocktail-ingredients col-md-8">
+		<table id="cocktailIngredientsTable">
+			<thead>
 				<tr>
-					<td>${cocktailIngredient.ingredients.name}</td>
-					<td><input type="number" min="0"
-						value="${cocktailIngredient.quantityNum}" /></td>
-					<td><input type="number" min="0"
-						value="${cocktailIngredient.quantityDen}" /></td>
-					<td><a href="${removeUrl}" class="btn">Supprimer</a></td>
+					<th>Ingrédient</th>
+					<th colspan="2">Quantité</th>
+					<th></th>		<%-- action --%>
 				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-	<form action="<c:url value='/cocktail/addIngredient.html'/>">
-		<select name="ingredientId">
-			<c:forEach items="${ingredients}" var="ingredient">
-				<option value="${ingredient.id}">${ingredient.name}</option>
-			</c:forEach>
-		</select>
-	</form>
+			</thead>
+			<tbody>
+				<c:forEach items="${cocktailIngredients}" var="cocktailIngredient">
+					<c:url value="/cocktail/removeIngredient.html" var="removeUrl">
+						<c:param name="ingredientId"
+							value="${cocktailIngredient.ingredient.id}">
+						</c:param>
+					</c:url>
+					<tr>
+						<td>${cocktailIngredient.ingredient.name}</td>
+						<td><input name="" type="number" min="1"
+							value="${cocktailIngredient.quantityNum}" /></td>
+						<td><input type="number" min="1"
+							value="${cocktailIngredient.quantityDen}" /></td>
+						<td><a href="${removeUrl}" class="btn">Supprimer</a></td>
+					</tr>
+				</c:forEach>
+				<tr>
+					<form action="<c:url value='/cocktail/addIngredient.html'/>">
+						<td><select name="ingredientId">
+								<c:forEach items="${ingredients}" var="ingredient">
+									<option value="${ingredient.id}">${ingredient.name}</option>
+								</c:forEach>
+						</select></td>
+						<td><input type="number" min="1" value="1"/></td>
+						<td><input type="number" min="1" value="1"/></td>
+						<td><button>Ajouter</button></td>
+					</form>
+				</tr>
+
+			</tbody>
+		</table>
+	</div>
 </div>
 <div class="back">
 	<a href="<c:url value='/cocktails.html'/>">Retour</a>
