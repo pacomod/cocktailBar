@@ -42,10 +42,14 @@ public class EditCocktailController {
 	}
 
 	@RequestMapping("/addIngredient")
-	public String addIngredient(@RequestParam final Integer ingredientId) {
+	public String addIngredient(@RequestParam final Integer ingredientId,
+			@RequestParam final Integer ingredientQuantityNum,
+			@RequestParam final Integer ingredientQuantityDen) {
 		final CocktailIngredient cocktailIngredients = new CocktailIngredient();
 		cocktailIngredients.setCocktail(this.cocktailService.get(this.cocktailId));
 		cocktailIngredients.setIngredient(this.ingredientService.get(ingredientId));
+		cocktailIngredients.setQuantityNum(ingredientQuantityNum);
+		cocktailIngredients.setQuantityDen(ingredientQuantityDen);
 		this.cocktailIngredients.add(cocktailIngredients);
 		return this.getForward();
 	}

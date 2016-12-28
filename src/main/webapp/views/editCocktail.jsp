@@ -43,7 +43,8 @@
 				<tr>
 					<th>Ingrédient</th>
 					<th colspan="2">Quantité</th>
-					<th></th>		<%-- action --%>
+					<th></th>
+					<%-- action --%>
 				</tr>
 			</thead>
 			<tbody>
@@ -54,12 +55,14 @@
 						</c:param>
 					</c:url>
 					<tr>
-						<td>${cocktailIngredient.ingredient.name}</td>
-						<td><input name="" type="number" min="1"
-							value="${cocktailIngredient.quantityNum}" /></td>
-						<td><input type="number" min="1"
-							value="${cocktailIngredient.quantityDen}" /></td>
-						<td><a href="${removeUrl}" class="btn">Supprimer</a></td>
+<%-- 						<form action=""> --%>
+							<td>${cocktailIngredient.ingredient.name}</td>
+							<td><input name="" type="number" min="1"
+								value="${cocktailIngredient.quantityNum}" /></td>
+							<td><input type="number" min="1"
+								value="${cocktailIngredient.quantityDen}" /></td>
+							<td><a href="${removeUrl}" class="btn">Supprimer</a></td>
+<%-- 						</form> --%>
 					</tr>
 				</c:forEach>
 				<tr>
@@ -69,8 +72,8 @@
 									<option value="${ingredient.id}">${ingredient.name}</option>
 								</c:forEach>
 						</select></td>
-						<td><input type="number" min="1" value="1"/></td>
-						<td><input type="number" min="1" value="1"/></td>
+						<td><input name="ingredientQuantityNum" type="number" min="1" value="1" /></td>
+						<td><input name="ingredientQuantityDen" type="number" min="1" value="1" /></td>
 						<td><button>Ajouter</button></td>
 					</form>
 				</tr>
