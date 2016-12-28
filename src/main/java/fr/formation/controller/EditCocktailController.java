@@ -32,7 +32,7 @@ public class EditCocktailController {
 	private IngredientService ingredientService;
 
 	private boolean error;
-	List<CocktailIngredient> cocktailIngredients;
+	private List<CocktailIngredient> cocktailIngredients;
 
 	private Integer cocktailId;
 
@@ -61,6 +61,10 @@ public class EditCocktailController {
 
 	@RequestMapping("/edit/{id}")
 	public ModelAndView edit(@PathVariable final Integer id) {
+		System.out.println("DBG: edit cocktail");
+		if (this.cocktailId != null && !this.cocktailId.equals(id)) {
+			this.cocktailIngredients = new ArrayList<>();
+		}
 		final ModelAndView mav = new ModelAndView();
 		mav.setViewName("editCocktail");
 		if (this.error) {
@@ -71,15 +75,19 @@ public class EditCocktailController {
 			this.cocktailId = cocktail.getId();
 		}
 		if (this.cocktailIngredients.isEmpty()) {
-			this.cocktailService.getCocktailIngredients(this.cocktailId);
+			this.cocktailIngredients
+					.addAll(this.cocktailService.getCocktailIngredients(this.cocktailId));
 		}
+		System.out.println("DBG " + this.cocktailIngredients);
 		mav.addObject("cocktailIngredients", this.cocktailIngredients);
 		mav.addObject("ingredients",
 				this.ingredientService.getAllByCocktail(this.cocktailIngredients));
+		System.out.println("DBG "
+				+ this.ingredientService.getAllByCocktail(this.cocktailIngredients));
 		return mav;
 	}
 
-	@RequestMapping(value="/save", method=RequestMethod.POST)
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(@ModelAttribute @Valid final Cocktail cocktail,
 			final BindingResult result) {
 		if (result.hasErrors()) {
@@ -87,7 +95,7 @@ public class EditCocktailController {
 		} else {
 			this.cocktailService.update(cocktail);
 		}
-		return getForward();
+		return this.getForward();
 	}
 
 	private String getForward() {
