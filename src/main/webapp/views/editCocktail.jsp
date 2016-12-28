@@ -48,32 +48,40 @@
 				</tr>
 			</thead>
 			<tbody>
+				<%-- Lister, modifier, supprimer les ingrédients --%>
 				<c:forEach items="${cocktailIngredients}" var="cocktailIngredient">
-					<c:url value="/cocktail/removeIngredient.html" var="removeUrl">
-						<c:param name="ingredientId"
-							value="${cocktailIngredient.ingredient.id}">
-						</c:param>
-					</c:url>
+<%-- 					<c:url value="/cocktail/removeIngredient.html" var="removeUrl"> --%>
+<%-- 						<c:param name="ingredientId" --%>
+<%-- 							value="${cocktailIngredient.ingredient.id}"> --%>
+<%-- 						</c:param> --%>
+<%-- 					</c:url> --%>
 					<tr>
-<%-- 						<form action=""> --%>
-							<td>${cocktailIngredient.ingredient.name}</td>
-							<td><input name="" type="number" min="1"
-								value="${cocktailIngredient.quantityNum}" /></td>
-							<td><input type="number" min="1"
-								value="${cocktailIngredient.quantityDen}" /></td>
-							<td><a href="${removeUrl}" class="btn">Supprimer</a></td>
-<%-- 						</form> --%>
+						<form action="<c:url value='/cocktail/removeIngredient.html'/>">
+							<input type="hidden" name="ingredientId"
+								value="${cocktailIngredient.ingredient.id}" />
+						<td><input type="text" disabled
+							value="${cocktailIngredient.ingredient.name}" /></td>
+						<td><input name="" type="number" min="1"
+							value="${cocktailIngredient.quantityNum}" /></td>
+						<td><input type="number" min="1"
+							value="${cocktailIngredient.quantityDen}" /></td>
+						<td><button>Supprimer</button></td>
+<%-- 						<td><a href="${removeUrl}" class="btn">Supprimer</a></td> --%>
+						</form>
 					</tr>
 				</c:forEach>
 				<tr>
+					<%-- Ajouter un ingrédient --%>
 					<form action="<c:url value='/cocktail/addIngredient.html'/>">
 						<td><select name="ingredientId">
 								<c:forEach items="${ingredients}" var="ingredient">
 									<option value="${ingredient.id}">${ingredient.name}</option>
 								</c:forEach>
 						</select></td>
-						<td><input name="ingredientQuantityNum" type="number" min="1" value="1" /></td>
-						<td><input name="ingredientQuantityDen" type="number" min="1" value="1" /></td>
+						<td><input name="ingredientQuantityNum" type="number" min="1"
+							value="1" /></td>
+						<td><input name="ingredientQuantityDen" type="number" min="1"
+							value="1" /></td>
 						<td><button>Ajouter</button></td>
 					</form>
 				</tr>
