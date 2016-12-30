@@ -10,6 +10,7 @@
 <c:url value="/webjars/bootstrap/3.1.0" var="bootstrapUrl" />
 <link rel="stylesheet" href="${bootstrapUrl}/css/bootstrap.min.css">
 <link rel="stylesheet" href="<c:url value='/css/cerulean.css'/>"/>
+<link rel="stylesheet" href="<c:url value='/css/cocktailIngredients.css'/>"/>
 <c:url value="/webjars/jquery/3.1.1-1/jquery.min.js" var="jqueryUrl" />
 <script src="${jqueryUrl}"></script>
 <script src="${bootstrapUrl}/js/bootstrap.min.js"></script>
