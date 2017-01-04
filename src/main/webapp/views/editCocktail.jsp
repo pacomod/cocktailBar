@@ -71,7 +71,8 @@
 							<input class="form-group col-md-1" name="ingredientQuantityDen"
 								type="number" min="1" value="${cocktailIngredient.quantityDen}" />
 							<div class="form-group col-md-1"></div>
-							<button id="btn${cocktailIngredient.ingredient.id}" class="form-group col-md-2">Supprimer</button>
+							<button id="btn${cocktailIngredient.ingredient.id}"
+								class="form-group btn-warning col-md-2">Supprimer</button>
 						</div>
 					</fieldset>
 				</form>
@@ -110,6 +111,7 @@
 <script type="text/javascript">
 	$('form.ckin :input').change(function() {
 		$('#btn' + $(this.form).attr('id')).html('Modifier');
+		$('#btn' + $(this.form).attr('id')).removeClass('btn-warning').addClass('btn-success');
 		$('#' + $(this.form).attr('id')).attr('action',
 				'<c:url value="/cocktail/modifyIngredient.html"/>')
 	});
