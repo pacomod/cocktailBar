@@ -19,6 +19,7 @@
 	<div class="cocktail-details col-md-4">
 		<form:form modelAttribute="cocktail" action="${saveUrl}">
 			<form:hidden path="id" />
+			<%-- passer la liste des ingrédients en hidden! --%>
 			<div class="form-group">
 				<form:label path="name">Nom</form:label>
 				<form:input path="name" class="form-control" />
@@ -37,63 +38,83 @@
 			<button>Valider</button>
 		</form:form>
 	</div>
-	<div class="cocktail-ingredients col-md-8">
-		<table id="cocktailIngredientsTable">
-			<thead>
-				<tr>
-					<th>Ingrédient</th>
-					<th colspan="2">Quantité</th>
-					<th></th>
+	<%-- Lister, modifier, supprimer les ingrédients --%>
+	<div class="container">
+		<div class="well col-md-8">
+			<%--CocktailIngredients pseudo table header --%>
+			<div class="row">
+				<div class="col-md-6">
+					<strong>Ingrédient</strong>
+				</div>
+				<div class="col-md-5">
+					<strong>Quantité</strong>
+				</div>
+				<div class="col-md-1">
 					<%-- action --%>
-				</tr>
-			</thead>
-			<tbody>
-				<%-- Lister, modifier, supprimer les ingrédients --%>
-				<c:forEach items="${cocktailIngredients}" var="cocktailIngredient">
-<%-- 					<c:url value="/cocktail/removeIngredient.html" var="removeUrl"> --%>
-<%-- 						<c:param name="ingredientId" --%>
-<%-- 							value="${cocktailIngredient.ingredient.id}"> --%>
-<%-- 						</c:param> --%>
-<%-- 					</c:url> --%>
-					<tr>
-						<form action="<c:url value='/cocktail/removeIngredient.html'/>">
+				</div>
+			</div>
+			<%--CocktailIngredients pseudo table body --%>
+			<c:forEach items="${cocktailIngredients}" var="cocktailIngredient">
+				<form id="${cocktailIngredient.ingredient.id}"
+					action="<c:url value='/cocktail/removeIngredient.html'/>" class="ckin">
+					<fieldset>
+						<div class="form-inline">
 							<input type="hidden" name="ingredientId"
 								value="${cocktailIngredient.ingredient.id}" />
-						<td><input type="text" disabled
-							value="${cocktailIngredient.ingredient.name}" /></td>
-						<td><input name="" type="number" min="1"
-							value="${cocktailIngredient.quantityNum}" /></td>
-						<td><input type="number" min="1"
-							value="${cocktailIngredient.quantityDen}" /></td>
-						<td><button>Supprimer</button></td>
-<%-- 						<td><a href="${removeUrl}" class="btn">Supprimer</a></td> --%>
-						</form>
-					</tr>
-				</c:forEach>
-				<tr>
-					<%-- Ajouter un ingrédient --%>
-					<form action="<c:url value='/cocktail/addIngredient.html'/>">
-						<td><select name="ingredientId">
-								<c:forEach items="${ingredients}" var="ingredient">
-									<option value="${ingredient.id}">${ingredient.name}</option>
-								</c:forEach>
-						</select></td>
-						<td><input name="ingredientQuantityNum" type="number" min="1"
-							value="1" /></td>
-						<td><input name="ingredientQuantityDen" type="number" min="1"
-							value="1" /></td>
-						<td><button>Ajouter</button></td>
-					</form>
-				</tr>
-
-			</tbody>
-		</table>
+							<input
+								class="form-group col-md-5" type="text" disabled
+								value="${cocktailIngredient.ingredient.name}" />
+							<div class="form-group col-md-1"></div>
+							<input class="form-group col-md-1" name="ingredientQuantityNum"
+								type="number" min="1" value="${cocktailIngredient.quantityNum}" />
+							<input class="form-group col-md-1 text-center" disabled value="/"/>
+							<input class="form-group col-md-1" name="ingredientQuantityDen"
+								type="number" min="1" value="${cocktailIngredient.quantityDen}" />
+							<div class="form-group col-md-1"></div>
+							<button id="btn${cocktailIngredient.ingredient.id}" class="form-group col-md-2">Supprimer</button>
+						</div>
+					</fieldset>
+				</form>
+			</c:forEach>
+			<hr>
+			<%-- Ajouter un ingrédient --%>
+			<form action="<c:url value='/cocktail/addIngredient.html'/>">
+				<fieldset>
+					<div class="form-inline">
+						<select id="ckadd" class="form-group col-md-5" name="ingredientId">
+							<option value="" selected disabled>Choisir</option>
+							<c:forEach items="${ingredients}" var="ingredient">
+								<option value="${ingredient.id}">${ingredient.name}</option>
+							</c:forEach>
+						</select>
+						<div class="form-group col-md-1"></div>
+						<input class="form-group col-md-1" name="ingredientQuantityNum"
+							type="number" min="1" value="1" />
+						<input class="form-group col-md-1 text-center" disabled value="/"/>
+						<input class="form-group col-md-1" name="ingredientQuantityDen"
+							type="number" min="1" value="1" />
+						<div class="form-group col-md-1"></div>
+						<button id="btnadd" class="form-group col-md-2" disabled>Ajouter</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
 	</div>
 </div>
-<div class="back">
-	<a href="<c:url value='/cocktails.html'/>">Retour</a>
-</div>
+<%--<div id="log"></div> --%>
+<%-- <div class="back"> --%>
+<%-- 	<a href="<c:url value='/cocktails.html'/>">Retour</a> --%>
+<%-- </div> --%>
+<%-- $('#coctailIngredientsTable').DataTable();--%>
+<%--		$('#log').prepend('<p>log:' + $('#' +$(this.form).attr('id')).attr('action') + '</p>') --%>
 <script type="text/javascript">
-	$('#coctailIngredientsTable').DataTable();
+	$('form.ckin :input').change(function() {
+		$('#btn' + $(this.form).attr('id')).html('Modifier');
+		$('#' + $(this.form).attr('id')).attr('action',
+				'<c:url value="/cocktail/modifyIngredient.html"/>')
+	});
+	$('#ckadd').change(function() {
+		$('#btnadd').removeAttr('disabled');
+	});
 </script>
 <jsp:include page="/inc/footer.jsp" />

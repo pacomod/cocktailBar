@@ -45,17 +45,39 @@ public class EditCocktailController {
 	public String addIngredient(@RequestParam final Integer ingredientId,
 			@RequestParam final Integer ingredientQuantityNum,
 			@RequestParam final Integer ingredientQuantityDen) {
-		final CocktailIngredient cocktailIngredients = new CocktailIngredient();
-		cocktailIngredients.setCocktail(this.cocktailService.get(this.cocktailId));
-		cocktailIngredients.setIngredient(this.ingredientService.get(ingredientId));
-		cocktailIngredients.setQuantityNum(ingredientQuantityNum);
-		cocktailIngredients.setQuantityDen(ingredientQuantityDen);
-		this.cocktailIngredients.add(cocktailIngredients);
+		System.out.println("EditCocktailController:addIngredient");
+		final CocktailIngredient cocktailIngredient = new CocktailIngredient();
+		cocktailIngredient.setCocktail(this.cocktailService.get(this.cocktailId));
+		cocktailIngredient.setIngredient(this.ingredientService.get(ingredientId));
+		cocktailIngredient.setQuantityNum(ingredientQuantityNum);
+		cocktailIngredient.setQuantityDen(ingredientQuantityDen);
+		this.cocktailIngredients.add(cocktailIngredient);
+		return this.getForward();
+	}
+
+	@RequestMapping("/modifyIngredient")
+	public String modifyIngredient(@RequestParam final Integer ingredientId,
+			@RequestParam final Integer ingredientQuantityNum,
+			@RequestParam final Integer ingredientQuantityDen) {
+		System.out.println("EditCocktailController:modifyIngredient");
+		System.out.println("dbg1: " + this.cocktailIngredients);
+		System.out.println("dbg2: " + this.ingredientService.get(ingredientId));
+		System.out.println("dbg3: " + this.cocktailService.get(this.cocktailId));
+		final CocktailIngredient cocktailIngredient = this.cocktailIngredients
+				.get(this.cocktailIngredients.indexOf(
+						new CocktailIngredient(this.cocktailService.get(this.cocktailId),
+								null, this.ingredientService.get(ingredientId), null, null)));
+		// cocktailIngredient.setCocktail(this.cocktailService.get(this.cocktailId));
+		// cocktailIngredient.setIngredient(this.ingredientService.get(ingredientId));
+		cocktailIngredient.setQuantityNum(ingredientQuantityNum);
+		cocktailIngredient.setQuantityDen(ingredientQuantityDen);
+		// this.cocktailIngredients.add(cocktailIngredient);
 		return this.getForward();
 	}
 
 	@RequestMapping("/removeIngredient")
 	public String removeIngredient(@RequestParam final Integer ingredientId) {
+		System.out.println("EditCocktailController:removeIngredient");
 		final CocktailIngredient cocktailIngredients = new CocktailIngredient();
 		cocktailIngredients.setCocktail(this.cocktailService.get(this.cocktailId));
 		cocktailIngredients.setIngredient(this.ingredientService.get(ingredientId));
@@ -65,7 +87,7 @@ public class EditCocktailController {
 
 	@RequestMapping("/edit/{id}")
 	public ModelAndView edit(@PathVariable final Integer id) {
-		System.out.println("DBG: edit cocktail");
+		System.out.println("EditCocktailController:edit cocktail");
 		if (this.cocktailId != null && !this.cocktailId.equals(id)) {
 			this.cocktailIngredients = new ArrayList<>();
 		}
@@ -82,18 +104,46 @@ public class EditCocktailController {
 			this.cocktailIngredients
 					.addAll(this.cocktailService.getCocktailIngredients(this.cocktailId));
 		}
-		System.out.println("DBG " + this.cocktailIngredients);
+		// System.out.println("DBG " + this.cocktailIngredients);
 		mav.addObject("cocktailIngredients", this.cocktailIngredients);
 		mav.addObject("ingredients",
-				this.ingredientService.getAllByCocktail(this.cocktailIngredients));
-		System.out.println("DBG "
-				+ this.ingredientService.getAllByCocktail(this.cocktailIngredients));
+				this.ingredientService.getAllIngredientsLeft(this.cocktailIngredients));
+		// System.out.println("DBG "
+		// + this.ingredientService.getAllByCocktail(this.cocktailIngredients));
 		return mav;
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
 	public String save(@ModelAttribute @Valid final Cocktail cocktail,
 			final BindingResult result) {
+		System.out.println("EditCocktailController:save cocktail");
+		// first get the ingredients list for this cocktail from storage
+		final List<CocktailIngredient> cocktailIngredients = this.cocktailService
+				.getCocktailIngredients(this.cocktailId);
+		for (final CocktailIngredient cocktailIngredient : this.cocktailIngredients) {
+			System.out.println("dbg2: " + cocktailIngredient.getIngredient());
+		}
+		for (final CocktailIngredient cocktailIngredient : cocktailIngredients) {
+			System.out.println("dbg3: " + cocktailIngredient.getIngredient());
+		}
+		// then update ingredients in the original list and insert new ones
+		for (final CocktailIngredient cocktailIngredient : this.cocktailIngredients) {
+			if (cocktailIngredients.contains(cocktailIngredient)) {
+				this.cocktailService.updateCocktailIngredient(cocktailIngredient);
+			} else {
+				this.cocktailService.addCocktailIngredient(
+						cocktailIngredient.getCocktail().getId(),
+						cocktailIngredient.getIngredient().getId(),
+						cocktailIngredient.getQuantityNum(),
+						cocktailIngredient.getQuantityDen());
+			}
+		}
+		// and remove those that are not in the original list anymore
+		for (final CocktailIngredient cocktailIngredient : cocktailIngredients) {
+			if (!this.cocktailIngredients.contains(cocktailIngredient)) {
+				this.cocktailService.removeCocktailIngredient(cocktailIngredient);
+			}
+		}
 		if (result.hasErrors()) {
 			this.error = true;
 		} else {

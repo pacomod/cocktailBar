@@ -33,7 +33,19 @@ public class CocktailService {
 		cocktailIngredient.setIngredient(this.ingredientDao.findOne(ingredientId));
 		cocktailIngredient.setQuantityNum(quantityNum);
 		cocktailIngredient.setQuantityDen(quantityDen);
+		System.out.println("CocktailService: addCocktailIngredient");
+		this.cocktailIngredientDao.save(cocktailIngredient);
+	}
 
+	@Transactional
+	public void removeCocktailIngredient(
+			final CocktailIngredient cocktailIngredient) {
+		this.cocktailIngredientDao.delete(cocktailIngredient);
+	}
+
+	@Transactional
+	public void updateCocktailIngredient(
+			final CocktailIngredient cocktailIngredient) {
 		this.cocktailIngredientDao.save(cocktailIngredient);
 	}
 
