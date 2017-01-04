@@ -40,7 +40,7 @@ public class IngredientService {
 		return this.dao.findOne(ingredientId);
 	}
 
-	public List<Ingredient> getAllByCocktail(
+	public List<Ingredient> getAllIngredientsLeft(
 			final List<CocktailIngredient> cocktailIngredients) {
 		List<Ingredient> results = null;
 		if (CollectionUtils.isEmpty(cocktailIngredients)) {
@@ -55,5 +55,4 @@ public class IngredientService {
 		}
 		return results;
 	}
-
 }
