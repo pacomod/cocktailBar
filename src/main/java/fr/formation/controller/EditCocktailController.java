@@ -129,7 +129,8 @@ public class EditCocktailController {
 		} else {
 			this.cocktailService.update(cocktail);
 		}
-		return this.getForward();
+		// return this.getForward();
+		return "redirect:/cocktails.html";
 	}
 
 	private String getForward() {
