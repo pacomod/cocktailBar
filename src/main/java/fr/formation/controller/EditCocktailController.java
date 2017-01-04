@@ -138,7 +138,7 @@ public class EditCocktailController {
 						cocktailIngredient.getQuantityDen());
 			}
 		}
-		// and remove those that are not in the original list anymore
+		// and remove those that are not in the list anymore
 		for (final CocktailIngredient cocktailIngredient : cocktailIngredients) {
 			if (!this.cocktailIngredients.contains(cocktailIngredient)) {
 				this.cocktailService.removeCocktailIngredient(cocktailIngredient);
