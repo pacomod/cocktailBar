@@ -21,7 +21,6 @@ public interface CocktailIngredientDao
 	 */
 	List<CocktailIngredient> findAllByCocktailId(Integer cocktailId);
 
-	// @PersistenceContext(type = PersistenceContextType.EXTENDED)
 	@Transactional
 	void deleteAllByCocktailId(Integer cocktailId);
 }
