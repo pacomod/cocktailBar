@@ -3,10 +3,12 @@ package fr.formation.dao;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import fr.formation.entity.CocktailIngredient;
 
-//@Repository
+@Repository
 public interface CocktailIngredientDao
 		extends JpaRepository<CocktailIngredient, Integer> {
 
@@ -19,4 +21,7 @@ public interface CocktailIngredientDao
 	 */
 	List<CocktailIngredient> findAllByCocktailId(Integer cocktailId);
 
+	// @PersistenceContext(type = PersistenceContextType.EXTENDED)
+	@Transactional
+	void deleteAllByCocktailId(Integer cocktailId);
 }

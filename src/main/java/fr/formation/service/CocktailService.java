@@ -38,6 +38,11 @@ public class CocktailService {
 	}
 
 	@Transactional
+	public void purgeCocktailIngredients(final Integer cocktailId) {
+		this.cocktailIngredientDao.deleteAllByCocktailId(cocktailId);
+	}
+
+	@Transactional
 	public void removeCocktailIngredient(
 			final CocktailIngredient cocktailIngredient) {
 		this.cocktailIngredientDao.delete(cocktailIngredient);

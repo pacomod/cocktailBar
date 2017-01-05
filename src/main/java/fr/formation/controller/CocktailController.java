@@ -41,7 +41,7 @@ public class CocktailController {
 	public String newCocktail(@RequestParam final String name,
 			@RequestParam final Double price, @RequestParam final Boolean alcoholic) {
 		this.cocktailService.create(new Cocktail(null, name, price, alcoholic));
-		return "redirect:/cocktails/add.html";
+		return "redirect:/cocktails.html";
 	}
 
 	@RequestMapping("/mod")
@@ -89,9 +89,10 @@ public class CocktailController {
 	}
 
 	@RequestMapping(value = "/del", method = RequestMethod.POST)
-	public String delCocktail(@RequestParam final int id,
+	public String delCocktail(@RequestParam final Integer id,
 			@RequestParam final String name, @RequestParam final double price,
 			@RequestParam final boolean alcoholic) {
+		this.cocktailService.purgeCocktailIngredients(id);
 		this.cocktailService.delete(new Cocktail(id, name, price, alcoholic));
 		return "redirect:/cocktails.html";
 	}

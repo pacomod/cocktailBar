@@ -69,9 +69,11 @@ public class EditCocktailController {
 
 	@RequestMapping("/removeIngredient")
 	public String removeIngredient(@RequestParam final Integer ingredientId) {
+		System.out.println("EditCocktailController:removeIngredient");
 		final CocktailIngredient cocktailIngredients = new CocktailIngredient();
 		cocktailIngredients.setCocktail(this.cocktailService.get(this.cocktailId));
 		cocktailIngredients.setIngredient(this.ingredientService.get(ingredientId));
+		System.out.println(cocktailIngredients);
 		this.cocktailIngredients.remove(cocktailIngredients);
 		return this.getForward();
 	}
@@ -79,7 +81,12 @@ public class EditCocktailController {
 	@RequestMapping("/edit/{id}")
 	public ModelAndView edit(@PathVariable final Integer id) {
 		if (this.cocktailId != null && !this.cocktailId.equals(id)) {
+			this.cocktailId = id;
 			this.cocktailIngredients = new ArrayList<>();
+			if (this.cocktailIngredients.isEmpty()) {
+				this.cocktailIngredients.addAll(
+						this.cocktailService.getCocktailIngredients(this.cocktailId));
+			}
 		}
 		final ModelAndView mav = new ModelAndView();
 		mav.setViewName("editCocktail");
@@ -90,10 +97,7 @@ public class EditCocktailController {
 			mav.addObject("cocktail", cocktail);
 			this.cocktailId = cocktail.getId();
 		}
-		if (this.cocktailIngredients.isEmpty()) {
-			this.cocktailIngredients
-					.addAll(this.cocktailService.getCocktailIngredients(this.cocktailId));
-		}
+
 		mav.addObject("cocktailIngredients", this.cocktailIngredients);
 		mav.addObject("ingredients",
 				this.ingredientService.getAllIngredientsLeft(this.cocktailIngredients));

@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import fr.formation.entity.Ingredient;
 import fr.formation.entity.State;
-import fr.formation.service.CocktailService;
 import fr.formation.service.IngredientService;
 
 @Controller
@@ -51,7 +50,8 @@ public class IngredientController {
 	@RequestMapping("/mod")
 	public ModelAndView mod(@Param(value = "id") final int id) {
 		final ModelAndView mav = new ModelAndView();
-		Iterator<Ingredient> ingrdientsIter = this.service.getAll().iterator();
+		final Iterator<Ingredient> ingrdientsIter = this.service.getAll()
+				.iterator();
 		Ingredient ingredient = null;
 		boolean found = false;
 		while (!found && ingrdientsIter.hasNext()) {
@@ -67,8 +67,7 @@ public class IngredientController {
 
 	@RequestMapping(value = "/mod", method = RequestMethod.POST)
 	public String modIngredient(@RequestParam final int id,
-			@RequestParam final String name,
-			@RequestParam final Integer state) {
+			@RequestParam final String name, @RequestParam final Integer state) {
 		this.service.update(new Ingredient(id, name, state));
 		return "redirect:/ingredients.html";
 	}
@@ -76,7 +75,8 @@ public class IngredientController {
 	@RequestMapping("/del")
 	public ModelAndView del(@Param(value = "id") final int id) {
 		final ModelAndView mav = new ModelAndView();
-		Iterator<Ingredient> ingrdientsIter = this.service.getAll().iterator();
+		final Iterator<Ingredient> ingrdientsIter = this.service.getAll()
+				.iterator();
 		Ingredient ingredient = null;
 		boolean found = false;
 		while (!found && ingrdientsIter.hasNext()) {
@@ -92,8 +92,7 @@ public class IngredientController {
 
 	@RequestMapping(value = "/del", method = RequestMethod.POST)
 	public String delIngredient(@RequestParam final int id,
-			@RequestParam final String name,
-			@RequestParam final State state) {
+			@RequestParam final String name, @RequestParam final State state) {
 		this.service.delete(new Ingredient(id, name, state.value()));
 		return "redirect:/ingredients.html";
 	}
