@@ -21,9 +21,9 @@
 				<%--Action → Url --%>
 				<c:when test="${action.equals('Ajouter')}">
 					<c:url value="/cocktails/add.html" var="actionUrl" />
-				</c:when>
+					<%--				</c:when>
 				<c:when test="${action.equals('Modifier')}">
-					<c:url value="/cocktails/mod.html" var="actionUrl" />
+					<c:url value="/cocktails/mod.html" var="actionUrl" /> --%>
 				</c:when>
 				<c:when test="${action.equals('Effacer')}">
 					<c:url value="/cocktails/del.html" var="actionUrl" />
@@ -60,74 +60,9 @@
 							<c:if test="${action.equals('Effacer')}">disabled=""</c:if>>
 						</label>
 					</div>
-					<%--Ingredients table --%>
-					<div class="row">
-						<legend>Ingrédients</legend>
-						<table id="cocktailIngredientsTable"
-							class="table table-hover table-striped">
-							<thead>
-								<tr>
-									<th>Id</th>
-									<th>Nom</th>
-									<th colspan="2">Quantité</th>
-									<th></th>
-									<%--action --%>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach items="${cocktailIngredients}"
-									var="cocktailIngredient">
-									<tr>
-										<td class="col-md-1">${cocktailIngredient.id}</td>
-										<td class="col-md-5"><input id="name" name="name"
-											class="form-control"
-											<c:if test="${action.equals('Effacer')}">disabled=""</c:if>
-											value="${cocktailIngredient.name}" /></td>
-										<td class="col-md-2"><input id="qtNum" name="qtNum"
-											class="form-control"
-											<c:if test="${action.equals('Effacer')}">disabled=""</c:if>
-											value="${cocktailIngredient.quantityNum}" type="number" min="1"/></td>
-										<td class="col-md-2"><input id="qtDen" name="qtDen"
-											class="form-control"
-											<c:if test="${action.equals('Effacer')}">disabled=""</c:if>
-											value="${cocktailIngredient.quantityDen}" type="number" min="1"/></td>
-										<td class="col-md-2"><button
-												class="btn btn-warning btn-xs">Supprimer</button>
-									</tr>
-								</c:forEach>
-								<tr>
-									<td class="col-md-1"></td>
-									<%--id… --%>
-									<td class="col-md-5"><select class="form-control"
-										id="newIngredient" name="newIngredient"
-										<c:if test="${action.equals('Effacer')}">disabled=""</c:if>>
-											<option value="" disabled selected>Nouveau</option>
-											<c:forEach items="${ingredients}" var="ingredient">
-												<option value="${ingredient.id}">${ingredient.name}</option>
-											</c:forEach>
-									</select></td>
-									<td class="col-md-2"><input id="newQtNum" name="newQtNum"
-										class="form-control" type="number"  min="1"
-										<c:if test="${action.equals('Effacer')}">disabled=""</c:if> />
-									</td>
-									<td class="col-md-2"><input id="newQtDen" name="newQtDen"
-										class="form-control" type="number"  min="1"
-										<c:if test="${action.equals('Effacer')}">disabled=""</c:if> />
-									</td>
-									<td class="col-md-2"><button class="btn btn-succes btn-xs">Ajouter</button>
-								</tr>
-							</tbody>
-						</table>
-						<%--envoyer la form… --%>
-						<button type="button" class="btn btn-default col-md-2"
-							data-toggle="modal" data-target="#validationModal">Valider</button>
-						<%-- 					<button class="btn btn-default">Valider</button> --%>
+					<button class="btn btn-default">Valider</button>
 
-					</div>
 				</fieldset>
-				<%-- Modal --%>
-				<c:set var="entityName" value="le cocktail" />
-				<%@ include file="/inc/confirmModal.jsp"%>
 			</form>
 		</div>
 	</div>
