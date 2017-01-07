@@ -81,4 +81,9 @@ public class CocktailService {
 			final Integer cocktailId) {
 		return this.cocktailIngredientDao.findAllByCocktailId(cocktailId);
 	}
+
+	public List<Cocktail> searchByName(final String search) {
+		return this.cocktailDao.findAllByNameContains(search);
+	}
+
 }

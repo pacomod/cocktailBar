@@ -17,21 +17,39 @@
 			id="bs-example-navbar-collapse-2">
 			<ul class="nav navbar-nav">
 				<c:forEach items="${menub}" var="menu">
-					<c:if test="${!menu.hasSubMenus()}">
-						<li><a href="<c:url value='${menu.url}'/>.html">${menu.title}
-						</a></li>
-					</c:if>
-					<c:if test="${menu.hasSubMenus()}">
-						<li class="dropdown"><a
-							href="<c:url value='${menu.url}.html'/>" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-expanded="false">${menu.title}<span
-								class="caret"> </span></a>
-							<ul class="dropdown-menu" role="menu">
-								<c:forEach items="${menu.subMenus}" var="subMenu">
-									<li><a href="<c:url value='${subMenu.url}.html'/>">${subMenu.title}</a></li>
-								</c:forEach>
-							</ul>
-					</c:if>
+					<c:choose>
+						<c:when test="${menu.title != 'Rechercher'}">
+							<c:choose>
+								<c:when test="${!menu.hasSubMenus()}">
+									<li><a href="<c:url value='${menu.url}'/>.html">${menu.title}
+									</a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="dropdown"><a
+										href="<c:url value='${menu.url}.html'/>"
+										class="dropdown-toggle" data-toggle="dropdown" role="button"
+										aria-expanded="false">${menu.title}<span class="caret">
+										</span></a>
+										<ul class="dropdown-menu" role="menu">
+											<c:forEach items="${menu.subMenus}" var="subMenu">
+												<li><a href="<c:url value='${subMenu.url}.html'/>">${subMenu.title}</a></li>
+											</c:forEach>
+										</ul>
+								</c:otherwise>
+							</c:choose>
+						</c:when>
+						<c:otherwise>
+							<li>
+								<form class="navbar-form navbar-right" role="search" action="<c:url value='${menu.url}.html'/>">
+									<div class="form-group">
+										<input class="form-control" placeholder="${menu.title}"
+											type="text" name="search">
+									</div>
+									<button type="submit" class="btn btn-default">${menu.title}</button>
+								</form>
+							</li>
+						</c:otherwise>
+					</c:choose>
 				</c:forEach>
 			</ul>
 		</div>

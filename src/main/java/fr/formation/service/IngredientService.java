@@ -55,4 +55,8 @@ public class IngredientService {
 		}
 		return results;
 	}
+
+	public List<Ingredient> searchByName(final String search) {
+		return this.dao.findAllByNameContains(search);
+	}
 }
