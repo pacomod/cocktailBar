@@ -80,7 +80,7 @@ public class EditCocktailController {
 
 	@RequestMapping("/edit/{id}")
 	public ModelAndView edit(@PathVariable final Integer id) {
-		if (this.cocktailId != null && !this.cocktailId.equals(id)) {
+		if (this.cocktailId == null || !this.cocktailId.equals(id)) {
 			this.cocktailId = id;
 			this.cocktailIngredients = new ArrayList<>();
 			if (this.cocktailIngredients.isEmpty()) {
